@@ -7,6 +7,9 @@ import Home from './Home';
 import GameSearch from './GameSearch';
 import GameList from './GameList';
 
+//import GameListPage from './GameListPage';
+//import GameDetail from './GameDetails';
+
 const App = () => {
   const [gameData, setGameData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -19,7 +22,7 @@ const App = () => {
       const data = await show();
       setGameData(data);
     } catch (error) {
-      setError('Failed to load game data');
+      setError('Failed to load game');
     } finally {
       setLoading(false);
     }
@@ -31,7 +34,6 @@ const App = () => {
 
   return (
     <div className="App">
-      {/* Navbar and Hero are shown on every page */}
       <Navbar />
       <Hero />
 
@@ -40,7 +42,7 @@ const App = () => {
       {error && <div className="text-center mt-8 text-red-500">{error}</div>}
 
       <Routes>
-        {/* Routes for pages */}
+        {/* Page Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/games" element={<GameSearch gameData={gameData} />} />
         <Route path="/game-list" element={<GameList gameData={gameData} />} />

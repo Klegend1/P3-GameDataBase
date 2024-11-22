@@ -18,4 +18,25 @@ export const show = async (query) => {
       throw err;  
     }
   };
+
+
+
+
+
+
+  
+//   //TRYING GET ONE GAME BY ID
+//   const fetchGameDetails = async (gameId) => {
+//     try {
+//       const game = await getGameById(gameId);   
+//       console.log(game);  
+//     } catch (error) {
+//       console.error("Error fetching game details:", error);
+//     }
+//   };
+  
+  
+//   fetchGameDetails 
+  
+
   

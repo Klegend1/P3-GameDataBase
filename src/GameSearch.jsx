@@ -1,51 +1,35 @@
-import React, { useState } from 'react';
-import { show } from './services/gameDatabase'; 
+import React, { useState, useEffect } from 'react';
+import { show } from './services/gameDatabase';
 import GameList from './GameList';
 
 const GameSearch = () => {
-  const [searchQuery, setSearchQuery] = useState('');
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
-  const handleChange = (e) => {
-    setSearchQuery(e.target.value);
-  };
+  useEffect(() => {
+    const fetchGames = async () => {
+      setLoading(true);
+      setError(null);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
+      try {
+        const fetchedGames = await show(page);
+        setGames(fetchedGames.results);
+        setTotalPages(fetchedGames.totalPages);  
+      } catch (err) {
+        setError('Error fetching games');
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    try {
-      const fetchedGames = await show(searchQuery);  
-      setGames(fetchedGames.results);
-    } catch (err) {
-      setError('Error fetching games');
-    } finally {
-      setLoading(false);
-    }
-  };
+    fetchGames();
+  }, [page]);
 
   return (
-    <div className="search-container p-6">
-      
-      <form onSubmit={handleSubmit} className="mb-4">
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={handleChange}
-          placeholder="Search for a game..."
-          className="p-2 border border-gray-300 rounded w-full sm:w-1/2 mx-auto"
-        />
-        <button
-          type="submit"
-          className="ml-2 p-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-        >
-          Search
-        </button>
-      </form>
-
+    <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-start p-6">
       {/* Loading Spinner */}
       {loading && <p className="text-center text-white">Loading...</p>}
 
@@ -53,11 +37,30 @@ const GameSearch = () => {
       {error && <p className="text-center text-red-500">{error}</p>}
 
       {/* Game List */}
-      <div>
+      <div className="w-full max-w-6xl mx-auto">
         {games.length === 0 && !loading && !error && (
           <p className="text-center text-white">No games found.</p>
         )}
         <GameList games={games} />
+      </div>
+
+      {/* Pagination Controls */}
+      <div className="pagination mt-4 flex justify-center items-center space-x-4">
+        <button
+          onClick={() => setPage(prevPage => Math.max(prevPage - 1, 1))}
+          disabled={page === 1}
+          className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all"
+        >
+          Previous
+        </button>
+        <span className="text-white">Page {page} of {totalPages}</span>
+        <button
+          onClick={() => setPage(prevPage => Math.min(prevPage + 1, totalPages))}
+          disabled={page === totalPages}
+          className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all"
+        >
+          Next
+        </button>
       </div>
     </div>
   );

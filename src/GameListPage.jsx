@@ -12,20 +12,19 @@ const fetchData = async (url) => {
   }
 };
 
-const GameList = () => {
+const GameListPage = () => {
   const [games, setGames] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     const getData = async () => {
       setLoading(true);
       try {
         const [fetchedGames, fetchedCategories] = await Promise.all([
-          fetchData('https://api.rawg.io/api/games?key=04e72ab6b4e845e78ced3291aacc2c2d'),
-          fetchData('https://api.rawg.io/api/genres?key=04e72ab6b4e845e78ced3291aacc2c2d')
+          fetchData('https://api.rawg.io/api/games?key=YOUR_API_KEY'),
+          fetchData('https://api.rawg.io/api/genres?key=YOUR_API_KEY')
         ]);
         setGames(fetchedGames);
         setCategories(fetchedCategories);
@@ -39,68 +38,36 @@ const GameList = () => {
     getData();
   }, []);
 
-  
-  const handleSearch = (e) => {
-    setSearchQuery(e.target.value);
-  };
-
-  const filteredGames = games.filter(game =>
-    game.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  
-  const renderStars = (rating) => {
-    const stars = [];
-    for (let i = 0; i < 5; i++) {
-      stars.push(
-        <span key={i} className={`text-yellow-400 ${i < rating ? 'text-yellow-500' : ''}`}>
-          ★
-        </span>
-      );
-    }
-    return stars;
-  };
-
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
 
   return (
-    <section id="games" className="py-12 bg-gray-800">
+    <section className="py-12 bg-gray-800">
       <div className="container mx-auto text-center">
         <h3 className="text-3xl font-bold text-white mb-6">All Games</h3>
 
-        {/* Searchbar */}
-        <input
-          type="text"
-          placeholder="Search for a game..."
-          className="p-2 w-full md:w-1/2 mx-auto mb-8 bg-gray-700 text-white rounded"
-          value={searchQuery}
-          onChange={handleSearch}
-        />
-
         {/* Render game cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredGames.map((game) => {
+          {games.map((game) => {
             const releaseYear = new Date(game.released).getFullYear();
             const gameImage = game.background_image;
 
             return (
               <div key={game.id} className="bg-gray-700 rounded-lg overflow-hidden shadow-lg">
-                <Link to={`/games/${game.id}`}>
-                  <div className="relative h-64 w-full mb-4">
-                    <img
-                      src={gameImage}
-                      alt={game.name}
-                      className="absolute inset-0 w-full h-full object-cover rounded-lg"
-                    />
-                  </div>
-                </Link>
+                <div className="relative h-64 w-full mb-4">
+                  <img
+                    src={gameImage}
+                    alt={game.name}
+                    className="absolute inset-0 w-full h-full object-cover rounded-lg"
+                  />
+                </div>
                 <div className="p-6">
                   <h4 className="text-xl font-semibold text-white">{game.name}</h4>
                   <p className="text-gray-400">Released in {releaseYear}</p>
-                  <div className="flex space-x-1 mt-2">
-                    {renderStars(game.rating)}
-                  </div>
+                  {/* Link to the Game Detail Page */}
+                  <Link to={`/game/${game.id}`} className="text-blue-500 hover:text-blue-600 mt-4 inline-block">
+                    Learn More
+                  </Link>
                 </div>
               </div>
             );
@@ -123,6 +90,4 @@ const GameList = () => {
   );
 };
 
-export default GameList;
-
-
+export default GameListPage;
