@@ -1,46 +1,71 @@
-P3:
-App Name: GameDataBase
-
-Link- GitHub:https://github.com/Klegend1/P3-GameDataBase
-
-![logo](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE0fCr6ndddc64wklvDf0ic6GTb0MDTezS5w&s)
-
-Technologies used:
-
-. REACT
-. Netilfy
-. API (Rawg) tested and works
-. Tailwind css
-. YOUTUBE!
-. Tailwindcss.com
-
-Link https://rawg.io/apidocs
 
 
-User Stories
-As a user,
-I want to view a list of games and characters,
-So that I can browse through available games and their related characters, view their details, and interact with the data in a clean and intuitive manner.
+Gaming is a huge part of modern entertainment, but with so many titles available across various platforms, it can be overwhelming to keep track of what's new or what's worth playing. GameDatabase was created to make game discovery easy and enjoyable. The app lets users:
+
+Browse through featured and popular games.
+View detailed information about each game (description, release year, rating, platforms).
+Navigate easily between games using a clean and intuitive interface.
 
 Objective!
 The goal is to create a dynamic and user-friendly game database application where users can search for games, view a list of all available games, and access detailed information about each game. Users should be able to browse the database easily, filter games by various parameters, and get more information with a single click.
 
++----------------+      +----------------+      +----------------+     +----------------+       +-------------------+
+|   HomePage     |      | FeaturedGame   |      |   Game         |     |   GameSearch    |      |   GameDetails     |
++----------------+      +----------------+      +----------------+     +----------------+       +-------------------+
+| homepage_id    |<--+--| featured_game_id|<----| game_id        |<----| search_id      |       | game_details_id    |
+| title          |      | game_id         |     | name           |     | search_term    |       | game_id            |
+| description    |      | homepage_id     |     | description    |     | game_id        |       | system_requirements|
+| created_at     |      | featured_at     |     | release_date   |     +----------------+       | gameplay_features  |
+| updated_at     |      | reason          |     | background_img |                              | content_categories |
++----------------+      +----------------+      | is_featured    |                              | additional_info    |
+      |                                         | average_rating |                              +-------------------+
+      |                                         | created_at     |
+      |                                         | updated_at     |
+      |                                         +----------------+
+      |
+      v                              F U T U R E   P L A N N I N G
++----------------+       +----------------+     +----------------+     +----------------+  
+|   GameList     |       |  Genre         |     |  Platform      |     |   Rating       |  
++----------------+       +----------------+     +----------------+     +----------------+  
+| list_id        |       | genre_id       |     | platform_id    |     | rating_id      |  
+| homepage_id    |       | name           |     | name           |     | user_id        |  
+| game_id        |       | description    |     | release_date   |     | game_id        |  
+| created_at     |       +----------------+     | created_at     |     | rating_value   |  
+| updated_at     |                              | updated_at     |     | created_at     |  
++----------------+                              +----------------+     +----------------+
 
 
-1. Game List
+. HomePage
+  As a user,
+  I want to search for games by name, genre, etc
+  So that I can easily find a game that interests me.
+
+. Featured Game
+   As a user, 
+   I want to discover a highlighted game on the homepage with quick access to detailed information.
+
+. Game List
    As a user,
    I want to view a list of all games in the database,
    So that I can browse through different games and choose the one I want to explore further.
 
-2. Game Search
+. Game Search
    As a user,
    I want to search for games by title, genre, or release year,
    So that I can quickly find a specific game from the database.
 
-3. Game Details
+. Game Details
    As a user,
    I want to see detailed information about a selected game,
    So that I can learn more about its plot, gameplay, system requirements, reviews, and ratings.
+
+. Game name
+. Description
+. Release date
+. Average rating
+. Platforms available (e.g., PC, Xbox, PlayStation)
+. Screenshots or a background image
+
 
 Functional Requirements:
 Game List:
@@ -65,7 +90,7 @@ UI Enhancements:
 Display a sidebar or dropdown that allows users to select these filters.
 Apply the filters to dynamically update the displayed list of games or characters.
 
-Additional Features (Optional)
+Additional Features (Optional)ß
 
 1. Game Wishlist/Favorites
    As a user,
@@ -83,7 +108,6 @@ Additional Features (Optional)
 
 4. Reviews and User Ratings
    Enable users to rate and leave reviews for games and characters to increase community engagement.
-   
 
 Level Ups
 Learned Some Tailwind

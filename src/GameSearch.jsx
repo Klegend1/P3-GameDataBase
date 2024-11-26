@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { show } from './services/gameDatabase';
 import GameList from './GameList';
+//import { Link } from 'react-router-dom';  
 
 const GameSearch = () => {
   const [games, setGames] = useState([]);
@@ -9,15 +10,16 @@ const GameSearch = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
+  
   useEffect(() => {
     const fetchGames = async () => {
       setLoading(true);
       setError(null);
 
       try {
-        const fetchedGames = await show(page);
-        setGames(fetchedGames.results);
-        setTotalPages(fetchedGames.totalPages);  
+        const fetchedGames = await show(page);  
+        setGames(fetchedGames.results); 
+        setTotalPages(fetchedGames.totalPages); 
       } catch (err) {
         setError('Error fetching games');
       } finally {
@@ -26,25 +28,26 @@ const GameSearch = () => {
     };
 
     fetchGames();
-  }, [page]);
+  }, [page]); 
+
+  const handleGameClick = (gameId) => {
+    console.log('Game ID clicked:', gameId); 
+  };
 
   return (
     <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-start p-6">
-      {/* Loading Spinner */}
       {loading && <p className="text-center text-white">Loading...</p>}
 
-      {/* Error Message */}
       {error && <p className="text-center text-red-500">{error}</p>}
 
-      {/* Game List */}
       <div className="w-full max-w-6xl mx-auto">
         {games.length === 0 && !loading && !error && (
           <p className="text-center text-white">No games found.</p>
         )}
-        <GameList games={games} />
-      </div>
 
-      {/* Pagination Controls */}
+        <GameList games={games} handleGameClick={handleGameClick} />
+
+      </div>
       <div className="pagination mt-4 flex justify-center items-center space-x-4">
         <button
           onClick={() => setPage(prevPage => Math.max(prevPage - 1, 1))}

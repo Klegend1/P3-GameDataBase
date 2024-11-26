@@ -17,7 +17,7 @@ const Navbar = () => {
   return (
     <nav className="bg-black shadow-lg p-4">
       <div className="container mx-auto flex justify-between items-center flex-wrap">
-        {/* Profile Section */}
+        
         <div className="flex items-center flex-col md:flex-row">
           <img
             src="https://64.media.tumblr.com/3d2134300bdb7f663eb95b248f1a730b/01845a919972fae9-d1/s1280x1920/ee8466dfb6e90edda0029f1edf228cfacb26b526.jpg"
@@ -29,12 +29,7 @@ const Navbar = () => {
           </h2>
         </div>
 
-        {/* Project Title */}
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white ml-4 mt-2 md:mt-0 py-1 px-3 rounded-lg bg-gradient-to-r from-blue-500 to-green-500 hover:from-green-500 hover:to-blue-500 hover:text-white transition duration-300">
-          Project 3
-        </h1>
-
-        {/* Navigation Links */}
+       
         <ul className="flex space-x-6 text-white mt-4 md:mt-0">
           <li>
             <Link to="/" className="text-sm sm:text-base md:text-lg hover:text-green-400 hover:underline transition-colors duration-300">
@@ -63,7 +58,6 @@ const Navbar = () => {
           </li>
         </ul>
 
-        {/* Search Bar */}
         <form onSubmit={handleSubmit} className="flex items-center ml-4 bg-gray-700 p-2 rounded-lg shadow-md w-full md:w-1/3">
           <input
             type="text"
@@ -85,6 +79,7 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
 
 
 
