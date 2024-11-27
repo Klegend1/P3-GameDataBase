@@ -2,6 +2,8 @@
 
 ![logo](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE0fCr6ndddc64wklvDf0ic6GTb0MDTezS5w&s)
 
+[netlify Deploy Site](https://bespoke-marshmallow-b01a82.netlify.app/)
+
 Technologies Used
 . React.js: The core front-end JavaScript library used for building the user interface.
 
